@@ -1,0 +1,59 @@
+---
+title: "api-practice-USGS"
+author: "Ruth Enriquez"
+date: "2022-08-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dataRetrieval)
+library(ggplot2)
+library(here)
+library(metajam)
+```
+
+### Exercise 1
+
+```{r}
+# Gathering Ventura Water Info
+siteNumber <- "11118500"
+VenturaInfo <- readNWISsite(siteNumber)
+parameterCd <- "00060"
+
+#Raw daily data:
+rawDailyData <- readNWISdv(siteNumber,parameterCd,
+                      "2019-10-01","2020-10-05")
+```
+
+#plot the discharge time-series for the Ventura River from 2019-10-01 to 2020-10-05
+
+```{r}
+ggVentura <- ggplot(data = rawDailyData, 
+aes(x = Date,
+    y = X_00060_00003)) +
+  geom_line()
+
+ggVentura
+```
+### Exercise 2
+
+```{r}
+# set inputs
+data_obj <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3A7fc6f6db-c5ea-426a-a743-1f2edafb43b8"
+path <- "~/api-practice"
+# download data and metadata
+
+download_d1_data(data_obj, path)
+# Returned
+#[1] "~/Desktop/doi_10.18739_A2DP3X__Alaska_Schools_Rentention2009_15"
+```
+
+```{r}
+household_lang <- read_d1_files("~/api-practice/doi_10.5063_F1CJ8BPH__household_language__csv/")
+```
+#Extract the dataframe
+```{r}
+dataframe <- household_lang$data
+```
+
