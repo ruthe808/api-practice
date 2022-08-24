@@ -52,7 +52,7 @@ download_d1_data(data_obj, path)
 ```{r}
 household_lang <- read_d1_files("~/api-practice/doi_10.5063_F1CJ8BPH__household_language__csv/")
 ```
-#Extract the dataframe
+#Extract the dataframe :)
 ```{r}
 dataframe <- household_lang$data
 ```
